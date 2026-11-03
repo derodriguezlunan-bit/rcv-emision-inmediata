@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emisión de RCV al Instante | La Venezolana de Seguros</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans antialiased">
 
@@ -17,7 +17,7 @@
                 Emite tu Póliza de RCV Legal al Instante
             </h1>
             <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-                Ingresa tus datos personales desglosados y sube el carnet de circulación; nuestra IA extraerá los datos del vehículo.
+                Ingresa tus datos personales y sube el carnet de circulación; nuestra IA extraerá los datos de tu vehículo al instante.
             </p>
 
             <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
@@ -206,7 +206,7 @@
             formData.append('direccion_detallada', document.getElementById('direccion_detallada').value);
 
             try {
-                const response = await fetch('https://rcv-backend-9r75.onrender.com/api/procesar-documentos', {
+                const response = await fetch('[https://rcv-backend-9r75.onrender.com/api/procesar-documentos](https://rcv-backend-9r75.onrender.com/api/procesar-documentos)', {
                     method: 'POST',
                     body: formData
                 });
@@ -219,7 +219,8 @@
                 btn.classList.remove('hidden');
 
             } catch (error) {
-                alert("Error al procesar el carnet. Asegúrate de que la foto sea nítida.");
+                console.error(error);
+                alert("Error al conectar con el servidor o procesar la imagen. Verifica tu conexión.");
                 btn.classList.remove('hidden');
                 loader.classList.add('hidden');
             }
@@ -257,7 +258,7 @@
 
 ¿Indícame cómo realizo el pago para recibir mi póliza!`;
 
-            const urlWpp = `https://wa.me/${tuNumeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            const urlWpp = `[https://wa.me/$](https://wa.me/$){tuNumeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
             window.open(urlWpp, '_blank');
         }
     </script>
