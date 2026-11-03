@@ -17,7 +17,7 @@
                 Emite tu Póliza de RCV Legal al Instante con Respaldo de La Venezolana de Seguros
             </h1>
             <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-                Sube tus documentos y la IA rellenará automáticamente los datos y la dirección del tomador.
+                Sube tus documentos y la IA rellenará automáticamente los datos y la dirección para procesar tu pedido por WhatsApp.
             </p>
 
             <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
@@ -95,7 +95,7 @@
 
                 <!-- BOTÓN DE ENVÍO -->
                 <button type="submit" id="btn-procesar" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide">
-                    Escanear Documentos y Rellenar con IA
+                    Escanear Documentos y Validar con IA
                 </button>
 
             </form>
@@ -106,10 +106,24 @@
                 <p class="text-sm text-slate-300 mt-2">Nuestra IA está leyendo tus documentos y completando los campos...</p>
             </div>
 
-            <!-- RESULTADO COMPLETO EN JSON / PANTALLA -->
-            <div id="resultado-container" class="hidden mt-6 p-4 bg-slate-900 rounded-xl border border-emerald-500/40">
-                <h3 class="text-emerald-400 text-sm font-bold mb-2">¡Datos y Dirección Extraídos con Éxito!</h3>
-                <pre id="json-output" class="text-xs text-slate-300 overflow-x-auto bg-slate-950 p-3 rounded-lg"></pre>
+            <!-- RESULTADO Y BOTÓN DE WHATSAPP -->
+            <div id="resultado-container" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-emerald-500/40 space-y-4 text-center">
+                <h3 class="text-emerald-400 text-base font-bold">
+                    ✅ ¡Documentos Escaneados Exitosamente!
+                </h3>
+                <p class="text-xs text-slate-300">
+                    Los datos han sido rellenados en el formulario de arriba. Haz clic en el botón de abajo para enviar tu solicitud directamente a nuestro WhatsApp y procesar tu pago y emisión inmediata.
+                </p>
+                
+                <button type="button" id="btn-whatsapp" onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide flex items-center justify-center gap-2">
+                    💬 Enviar Solicitud y Pagar por WhatsApp
+                </button>
+
+                <div class="pt-2">
+                    <button type="button" onclick="location.reload()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all border border-slate-700">
+                        Escanear Otro Vehículo
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -117,6 +131,7 @@
 
     <script>
         let precioActual = "36.96";
+        let datosUltimos = {};
 
         function seleccionarTipo(tipo, precio) {
             document.getElementById('tipo_vehiculo').value = tipo;
@@ -156,19 +171,18 @@
                 });
                 
                 const resultado = await response.json();
-                const data = resultado.data;
+                datosUltimos = resultado.data;
                 
                 loader.classList.add('hidden');
                 resContainer.classList.remove('hidden');
 
-                // Rellenar automáticamente los inputs de dirección visibles en pantalla
-                if(data.estado) document.getElementById('estado').value = data.estado;
-                if(data.ciudad) document.getElementById('ciudad').value = data.ciudad;
-                if(data.municipio) document.getElementById('municipio').value = data.municipio;
-                if(data.parroquia) document.getElementById('parroquia').value = data.parroquia;
-                if(data.direccion_detallada) document.getElementById('direccion_detallada').value = data.direccion_detallada;
+                // Rellenar automáticamente los inputs visibles por si el usuario quiere revisarlos
+                if(datosUltimos.estado) document.getElementById('estado').value = datosUltimos.estado;
+                if(datosUltimos.ciudad) document.getElementById('ciudad').value = datosUltimos.ciudad;
+                if(datosUltimos.municipio) document.getElementById('municipio').value = datosUltimos.municipio;
+                if(datosUltimos.parroquia) document.getElementById('parroquia').value = datosUltimos.parroquia;
+                if(datosUltimos.direccion_detallada) document.getElementById('direccion_detallada').value = datosUltimos.direccion_detallada;
 
-                document.getElementById('json-output').innerText = JSON.stringify(resultado, null, 2);
                 btn.classList.remove('hidden');
 
             } catch (error) {
@@ -177,6 +191,47 @@
                 loader.classList.add('hidden');
             }
         });
+
+        function enviarWhatsApp() {
+            // Reemplaza este número con tu número de WhatsApp personal/comercial (con código de país, ej: 58414...)
+            const tuNumeroWhatsApp = "584144668241"; 
+
+            // Tomar valores actuales por si el usuario los editó a mano
+            const cedula = datosUltimos.cedula || 'N/A';
+            const nombre = datosUltimos.nombre_completo || 'N/A';
+            const placa = datosUltimos.placa || 'N/A';
+            const marcaModelo = (datosUltimos.marca || '') + ' ' + (datosUltimos.modelo || '');
+            const tipoVehiculo = document.getElementById('tipo_vehiculo').value;
+            const telefonoUser = document.getElementById('telefono').value;
+            const correoUser = document.getElementById('correo').value;
+            
+            const estado = document.getElementById('estado').value;
+            const ciudad = document.getElementById('ciudad').value;
+            const municipio = document.getElementById('municipio').value;
+            const parroquia = document.getElementById('parroquia').value;
+            const dirDetallada = document.getElementById('direccion_detallada').value;
+
+            const mensaje = `Hola Néstor, quiero emitir mi póliza RCV al instante. Mis datos escaneados por IA son:
+
+🚗 *Tipo:* ${tipoVehiculo.toUpperCase()} ($${precioActual})
+👤 *Nombre:* ${nombre}
+🪪 *Cédula:* ${cedula}
+🚙 *Vehículo/Placa:* ${marcaModelo} - Placa: ${placa}
+📞 *Teléfono:* ${telefonoUser}
+📧 *Correo:* ${correoUser}
+
+📍 *Dirección del Tomador:*
+- Estado: ${estado}
+- Ciudad: ${ciudad}
+- Municipio: ${municipio}
+- Parroquia: ${parroquia}
+- Detalle: ${dirDetallada}
+
+¿Indícame cómo realizo el pago para recibir mi póliza!`;
+
+            const urlWpp = `https://wa.me/${tuNumeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWpp, '_blank');
+        }
     </script>
 </body>
 </html>
