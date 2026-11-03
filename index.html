@@ -17,7 +17,7 @@
                 Emite tu Póliza de RCV Legal al Instante con Respaldo de La Venezolana de Seguros
             </h1>
             <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-                Sin escribir datos a mano. Sube la foto de tu Cédula y Carnet de Circulación; nuestra IA procesa tu póliza y dirección en segundos.
+                Sube tus documentos y la IA rellenará automáticamente los datos y la dirección del tomador.
             </p>
 
             <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <!-- FORMULARIO DE CARGA DE IMÁGENES -->
+        <!-- FORMULARIO DE CARGA DE IMÁGENES Y DATOS -->
         <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-sm">
             <form id="ocr-form" class="space-y-6">
                 
@@ -49,7 +49,7 @@
                     <input type="file" id="foto_carnet" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
                 </div>
 
-                <!-- DATOS ADICIONALES (CONTACTO) -->
+                <!-- DATOS DE CONTACTO -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                     <div>
                         <label class="block text-xs font-medium text-slate-300 mb-1">Teléfono (WhatsApp) *</label>
@@ -61,9 +61,41 @@
                     </div>
                 </div>
 
+                <!-- SECCIÓN DE DIRECCIÓN DEL TOMADOR (AUTO-RELLENABLE POR IA) -->
+                <div class="border-t border-slate-700 pt-6 space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Dirección del Tomador (Autocompletada por IA o editable)</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Estado *</label>
+                            <input type="text" id="estado" placeholder="Ej: MIRANDA" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Ciudad *</label>
+                            <input type="text" id="ciudad" placeholder="Ej: GUARENAS" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Municipio *</label>
+                            <input type="text" id="municipio" placeholder="Ej: Plaza" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Parroquia *</label>
+                            <input type="text" id="parroquia" placeholder="Ej: Guarenas" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Dirección Detallada *</label>
+                        <input type="text" id="direccion_detallada" placeholder="Ej: Urbanización, Edificio, Apartamento o Casa" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
                 <!-- BOTÓN DE ENVÍO -->
                 <button type="submit" id="btn-procesar" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide">
-                    Escanear Documentos con IA
+                    Escanear Documentos y Rellenar con IA
                 </button>
 
             </form>
@@ -71,42 +103,13 @@
             <!-- ESTADO DE CARGA -->
             <div id="loader" class="hidden text-center py-6">
                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-500 border-t-transparent"></div>
-                <p class="text-sm text-slate-300 mt-2">Nuestra IA está leyendo tus documentos, vehículos y dirección...</p>
+                <p class="text-sm text-slate-300 mt-2">Nuestra IA está leyendo tus documentos y completando los campos...</p>
             </div>
 
-            <!-- RESULTADO VISUAL DESGLOSADO -->
-            <div id="resultado-container" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-emerald-500/40 space-y-4">
-                <h3 class="text-emerald-400 text-base font-bold flex items-center gap-2">
-                    ✅ ¡Datos y Dirección Extraídos con Éxito por la IA!
-                </h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div><strong class="text-emerald-400">Cédula:</strong> <span id="res-cedula"></span></div>
-                    <div><strong class="text-emerald-400">Nombre:</strong> <span id="res-nombre"></span></div>
-                    <div><strong class="text-emerald-400">Placa:</strong> <span id="res-placa"></span></div>
-                    <div><strong class="text-emerald-400">Vehículo:</strong> <span id="res-vehiculo"></span> (<span id="res-tipo"></span>)</div>
-                    <div><strong class="text-emerald-400">Precio Póliza:</strong> $<span id="res-precio"></span></div>
-                </div>
-
-                <!-- DIRECCIÓN DEL TOMADOR RECUPERADA -->
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Dirección del Tomador Detectada:</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-slate-300">
-                        <div>Estado: <span id="res-estado" class="text-white font-semibold"></span></div>
-                        <div>Ciudad: <span id="res-ciudad" class="text-white font-semibold"></span></div>
-                        <div>Municipio: <span id="res-municipio" class="text-white font-semibold"></span></div>
-                        <div>Parroquia: <span id="res-parroquia" class="text-white font-semibold"></span></div>
-                    </div>
-                    <div class="text-xs text-slate-300 pt-2 border-t border-slate-800">
-                        Dirección Detallada: <span id="res-dir" class="text-white font-semibold"></span>
-                    </div>
-                </div>
-
-                <div class="pt-2">
-                    <button type="button" onclick="location.reload()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all border border-slate-700">
-                        Escanear Otro Vehículo
-                    </button>
-                </div>
+            <!-- RESULTADO COMPLETO EN JSON / PANTALLA -->
+            <div id="resultado-container" class="hidden mt-6 p-4 bg-slate-900 rounded-xl border border-emerald-500/40">
+                <h3 class="text-emerald-400 text-sm font-bold mb-2">¡Datos y Dirección Extraídos con Éxito!</h3>
+                <pre id="json-output" class="text-xs text-slate-300 overflow-x-auto bg-slate-950 p-3 rounded-lg"></pre>
             </div>
         </div>
 
@@ -158,19 +161,15 @@
                 loader.classList.add('hidden');
                 resContainer.classList.remove('hidden');
 
-                // Rellenar los campos visuales con la respuesta de la IA
-                document.getElementById('res-cedula').innerText = data.cedula || 'N/A';
-                document.getElementById('res-nombre').innerText = data.nombre_completo || 'N/A';
-                document.getElementById('res-placa').innerText = data.placa || 'N/A';
-                document.getElementById('res-vehiculo').innerText = (data.marca || '') + ' ' + (data.modelo || '');
-                document.getElementById('res-tipo').innerText = data.tipo_vehiculo || 'carro';
-                document.getElementById('res-precio').innerText = data.precio || precioActual;
-                
-                document.getElementById('res-estado').innerText = data.estado || 'N/A';
-                document.getElementById('res-ciudad').innerText = data.ciudad || 'N/A';
-                document.getElementById('res-municipio').innerText = data.municipio || 'N/A';
-                document.getElementById('res-parroquia').innerText = data.parroquia || 'N/A';
-                document.getElementById('res-dir').innerText = data.direccion_detallada || 'N/A';
+                // Rellenar automáticamente los inputs de dirección visibles en pantalla
+                if(data.estado) document.getElementById('estado').value = data.estado;
+                if(data.ciudad) document.getElementById('ciudad').value = data.ciudad;
+                if(data.municipio) document.getElementById('municipio').value = data.municipio;
+                if(data.parroquia) document.getElementById('parroquia').value = data.parroquia;
+                if(data.direccion_detallada) document.getElementById('direccion_detallada').value = data.direccion_detallada;
+
+                document.getElementById('json-output').innerText = JSON.stringify(resultado, null, 2);
+                btn.classList.remove('hidden');
 
             } catch (error) {
                 alert("Error al procesar las imágenes. Por favor asegúrate de que las fotos sean nítidas.");
