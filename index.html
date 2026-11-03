@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emisión de RCV al Instante | La Venezolana de Seguros</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans antialiased">
 
@@ -14,10 +14,10 @@
         <div class="text-center mb-10">
             <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/20">Emisión Inteligente con IA</span>
             <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 tracking-tight text-white">
-                Emite tu Póliza de RCV Legal al Instante con Respaldo de La Venezolana de Seguros
+                Emite tu Póliza de RCV Legal al Instante
             </h1>
             <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-                Sube tus documentos y la IA rellenará automáticamente los datos y la dirección para procesar tu pedido por WhatsApp.
+                Ingresa tus datos y sube el carnet de circulación; nuestra IA extraerá los datos de tu vehículo al instante.
             </p>
 
             <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
@@ -31,26 +31,29 @@
             </div>
         </div>
 
-        <!-- FORMULARIO DE CARGA DE IMÁGENES Y DATOS -->
+        <!-- FORMULARIO PRINCIPAL -->
         <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-sm">
             <form id="ocr-form" class="space-y-6">
                 
                 <input type="hidden" id="tipo_vehiculo" value="carro">
 
-                <!-- SUBIR CÉDULA -->
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">1. Foto de la Cédula de Identidad *</label>
-                    <input type="file" id="foto_cedula" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
+                <!-- DATOS PERSONALES -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Cédula de Identidad *</label>
+                        <input type="text" id="cedula" required placeholder="Ej: V-14567890" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Nombre y Apellido *</label>
+                        <input type="text" id="nombre" required placeholder="Ej: Néstor Rodríguez" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
                 </div>
 
-                <!-- SUBIR CARNET DE CIRCULACIÓN -->
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">2. Foto del Carnet de Circulación o Título *</label>
-                    <input type="file" id="foto_carnet" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
-                </div>
-
-                <!-- DATOS DE CONTACTO -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Fecha de Nacimiento *</label>
+                        <input type="date" id="fecha_nacimiento" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-300 mb-1">Teléfono (WhatsApp) *</label>
                         <input type="tel" id="telefono" required placeholder="Ej: 04144668241" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
@@ -61,41 +64,47 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN DE DIRECCIÓN DEL TOMADOR (AUTO-RELLENABLE POR IA) -->
+                <!-- DIRECCIÓN DEL TOMADOR -->
                 <div class="border-t border-slate-700 pt-6 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Dirección del Tomador (Autocompletada por IA o editable)</h3>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Dirección de Habitación</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-medium text-slate-300 mb-1">Estado *</label>
-                            <input type="text" id="estado" placeholder="Ej: MIRANDA" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="estado" required placeholder="Ej: MIRANDA" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-slate-300 mb-1">Ciudad *</label>
-                            <input type="text" id="ciudad" placeholder="Ej: GUARENAS" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="ciudad" required placeholder="Ej: GUARENAS" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-medium text-slate-300 mb-1">Municipio *</label>
-                            <input type="text" id="municipio" placeholder="Ej: Plaza" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="municipio" required placeholder="Ej: Plaza" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-slate-300 mb-1">Parroquia *</label>
-                            <input type="text" id="parroquia" placeholder="Ej: Guarenas" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            <input type="text" id="parroquia" required placeholder="Ej: Guarenas" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-medium text-slate-300 mb-1">Dirección Detallada *</label>
-                        <input type="text" id="direccion_detallada" placeholder="Ej: Urbanización, Edificio, Apartamento o Casa" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        <input type="text" id="direccion_detallada" required placeholder="Ej: Urbanización, Edificio, Apartamento o Casa" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                     </div>
+                </div>
+
+                <!-- SUBIR SOLO CARNET DE CIRCULACIÓN -->
+                <div class="border-t border-slate-700 pt-6">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">Foto del Carnet de Circulación o Título (IA) *</label>
+                    <input type="file" id="foto_carnet" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
                 </div>
 
                 <!-- BOTÓN DE ENVÍO -->
                 <button type="submit" id="btn-procesar" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide">
-                    Escanear Documentos y Validar con IA
+                    Escanear Vehículo y Generar Solicitud
                 </button>
 
             </form>
@@ -103,16 +112,16 @@
             <!-- ESTADO DE CARGA -->
             <div id="loader" class="hidden text-center py-6">
                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-500 border-t-transparent"></div>
-                <p class="text-sm text-slate-300 mt-2">Nuestra IA está leyendo tus documentos y completando los campos...</p>
+                <p class="text-sm text-slate-300 mt-2">Leyendo el carnet de circulación con IA...</p>
             </div>
 
             <!-- RESULTADO Y BOTÓN DE WHATSAPP -->
             <div id="resultado-container" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-emerald-500/40 space-y-4 text-center">
                 <h3 class="text-emerald-400 text-base font-bold">
-                    ✅ ¡Documentos Escaneados Exitosamente!
+                    ✅ ¡Vehículo Escaneado y Datos Listos!
                 </h3>
                 <p class="text-xs text-slate-300">
-                    Los datos han sido rellenados en el formulario de arriba. Haz clic en el botón de abajo para enviar tu solicitud directamente a nuestro WhatsApp y procesar tu pago y emisión inmediata.
+                    Haz clic abajo para enviar tu solicitud completa y procesar el pago por WhatsApp.
                 </p>
                 
                 <button type="button" id="btn-whatsapp" onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide flex items-center justify-center gap-2">
@@ -121,7 +130,7 @@
 
                 <div class="pt-2">
                     <button type="button" onclick="location.reload()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all border border-slate-700">
-                        Escanear Otro Vehículo
+                        Registrar Otra Póliza
                     </button>
                 </div>
             </div>
@@ -131,7 +140,7 @@
 
     <script>
         let precioActual = "36.96";
-        let datosUltimos = {};
+        let datosVehiculo = {};
 
         function seleccionarTipo(tipo, precio) {
             document.getElementById('tipo_vehiculo').value = tipo;
@@ -157,79 +166,69 @@
             loader.classList.remove('hidden');
 
             const formData = new FormData();
-            formData.append('cedula_img', document.getElementById('foto_cedula').files[0]);
             formData.append('carnet_img', document.getElementById('foto_carnet').files[0]);
+            formData.append('cedula', document.getElementById('cedula').value);
+            formData.append('nombre', document.getElementById('nombre').value);
+            formData.append('fecha_nacimiento', document.getElementById('fecha_nacimiento').value);
             formData.append('telefono', document.getElementById('telefono').value);
             formData.append('correo', document.getElementById('correo').value);
             formData.append('tipo_vehiculo', document.getElementById('tipo_vehiculo').value);
             formData.append('precio', precioActual);
+            formData.append('estado', document.getElementById('estado').value);
+            formData.append('ciudad', document.getElementById('ciudad').value);
+            formData.append('municipio', document.getElementById('municipio').value);
+            formData.append('parroquia', document.getElementById('parroquia').value);
+            formData.append('direccion_detallada', document.getElementById('direccion_detallada').value);
 
             try {
-                const response = await fetch('https://rcv-backend-9r75.onrender.com/api/procesar-documentos', {
+                const response = await fetch('[https://rcv-backend-9r75.onrender.com/api/procesar-documentos](https://rcv-backend-9r75.onrender.com/api/procesar-documentos)', {
                     method: 'POST',
                     body: formData
                 });
                 
                 const resultado = await response.json();
-                datosUltimos = resultado.data;
+                datosVehiculo = resultado.data;
                 
                 loader.classList.add('hidden');
                 resContainer.classList.remove('hidden');
-
-                // Rellenar automáticamente los inputs visibles por si el usuario quiere revisarlos
-                if(datosUltimos.estado) document.getElementById('estado').value = datosUltimos.estado;
-                if(datosUltimos.ciudad) document.getElementById('ciudad').value = datosUltimos.ciudad;
-                if(datosUltimos.municipio) document.getElementById('municipio').value = datosUltimos.municipio;
-                if(datosUltimos.parroquia) document.getElementById('parroquia').value = datosUltimos.parroquia;
-                if(datosUltimos.direccion_detallada) document.getElementById('direccion_detallada').value = datosUltimos.direccion_detallada;
-
                 btn.classList.remove('hidden');
 
             } catch (error) {
-                alert("Error al procesar las imágenes. Por favor asegúrate de que las fotos sean nítidas.");
+                alert("Error al procesar el carnet. Asegúrate de que la foto sea nítida.");
                 btn.classList.remove('hidden');
                 loader.classList.add('hidden');
             }
         });
 
         function enviarWhatsApp() {
-            // Reemplaza este número con tu número de WhatsApp personal/comercial (con código de país, ej: 58414...)
             const tuNumeroWhatsApp = "584144668241"; 
 
-            // Tomar valores actuales por si el usuario los editó a mano
-            const cedula = datosUltimos.cedula || 'N/A';
-            const nombre = datosUltimos.nombre_completo || 'N/A';
-            const placa = datosUltimos.placa || 'N/A';
-            const marcaModelo = (datosUltimos.marca || '') + ' ' + (datosUltimos.modelo || '');
-            const tipoVehiculo = document.getElementById('tipo_vehiculo').value;
-            const telefonoUser = document.getElementById('telefono').value;
-            const correoUser = document.getElementById('correo').value;
-            
-            const estado = document.getElementById('estado').value;
-            const ciudad = document.getElementById('ciudad').value;
-            const municipio = document.getElementById('municipio').value;
-            const parroquia = document.getElementById('parroquia').value;
-            const dirDetallada = document.getElementById('direccion_detallada').value;
+            const mensaje = `Hola Néstor, quiero emitir mi póliza RCV al instante. Estos son mis datos y el vehículo escaneado por IA:
 
-            const mensaje = `Hola Néstor, quiero emitir mi póliza RCV al instante. Mis datos escaneados por IA son:
+🚗 *Tipo:* ${datosVehiculo.tipo_vehiculo.toUpperCase()} ($${datosVehiculo.precio})
+👤 *Nombre:* ${datosVehiculo.nombre_completo}
+🪪 *Cédula:* ${datosVehiculo.cedula}
+🎂 *F. Nacimiento:* ${datosVehiculo.fecha_nacimiento}
+📞 *Teléfono:* ${datosVehiculo.telefono}
+📧 *Correo:* ${datosVehiculo.correo}
 
-🚗 *Tipo:* ${tipoVehiculo.toUpperCase()} ($${precioActual})
-👤 *Nombre:* ${nombre}
-🪪 *Cédula:* ${cedula}
-🚙 *Vehículo/Placa:* ${marcaModelo} - Placa: ${placa}
-📞 *Teléfono:* ${telefonoUser}
-📧 *Correo:* ${correoUser}
+🚙 *Datos del Vehículo (Escaneados por IA):*
+- Placa: ${datosVehiculo.placa}
+- Marca/Modelo: ${datosVehiculo.marca} ${datosVehiculo.modelo}
+- Año: ${datosVehiculo.anio}
+- Color: ${datosVehiculo.color}
+- Serial Carrocería: ${datosVehiculo.serial_carroceria}
 
 📍 *Dirección del Tomador:*
-- Estado: ${estado}
-- Ciudad: ${ciudad}
-- Municipio: ${municipio}
-- Parroquia: ${parroquia}
-- Detalle: ${dirDetallada}
+- Estado: ${datosVehiculo.estado}
+- Ciudad: ${datosVehiculo.ciudad}
+- Municipio: ${datosVehiculo.municipio}
+- Parroquia: ${datosVehiculo.parroquia}
+- Detalle: ${datosVehiculo.direccion_detallada}
 
 ¿Indícame cómo realizo el pago para recibir mi póliza!`;
 
-            const urlWpp = `https://wa.me/${tuNumeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            const urlWpp = `[https://wa.me/$](https://wa.me/$){tuNumeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
             window.open(urlWpp, '_blank');
         }
     </script>
