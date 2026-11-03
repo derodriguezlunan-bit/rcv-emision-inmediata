@@ -124,8 +124,7 @@
             formData.append('precio', precioActual);
 
             try {
-                // Reemplazar la URL con tu servidor Python de Render cuando esté activo
-                const response = await fetch('YOUR_BACKEND_URL/api/procesar-documentos', {
+                const response = await fetch('https://rcv-backend-9r75.onrender.com/api/procesar-documentos', {
                     method: 'POST',
                     body: formData
                 });
@@ -136,7 +135,7 @@
                 resContainer.classList.remove('hidden');
                 document.getElementById('json-output').innerText = JSON.stringify(data, null, 2);
 
-            </div> catch (error) {
+            } catch (error) {
                 alert("Error al procesar las imágenes. Por favor asegúrate de que las fotos sean nítidas.");
                 btn.classList.remove('hidden');
                 loader.classList.add('hidden');
