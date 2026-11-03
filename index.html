@@ -1,55 +1,73 @@
-<!-- SECCIÓN: DATOS DEL VEHÍCULO (MANUAL) -->
-<div class="space-y-4">
-    <h3 class="text-lg font-semibold text-emerald-400 mb-2">Datos del Vehículo</h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Placa *</label>
-            <input type="text" name="placa" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: AF147MM">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emisión de RCV al Instante | La Venezolana de Seguros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased">
+
+    <div class="max-w-3xl mx-auto px-4 py-12">
+        
+        <!-- ENCABEZADO -->
+        <div class="text-center mb-10">
+            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/20">Emisión Inmediata Manual</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 tracking-tight text-white">
+                Emite tu Póliza de RCV Legal al Instante
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
+                Ingresa tus datos personales y los de tu vehículo para generar tu solicitud de emisión.
+            </p>
+
+            <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
+            <div class="mt-6 flex justify-center space-x-3">
+                <button type="button" id="btn-carro" onclick="seleccionarTipo('carro', '36.96')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-emerald-600 text-white shadow-lg border border-emerald-500">
+                    🚗 Carro / Camioneta ($36,96)
+                </button>
+                <button type="button" id="btn-moto" onclick="seleccionarTipo('moto', '16.80')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-slate-800 text-slate-400 border border-slate-700 hover:text-white">
+                    🏍️ Moto ($16,80)
+                </button>
+            </div>
         </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Marca *</label>
-            <input type="text" name="marca" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: TOYOTA">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Modelo *</label>
-            <input type="text" name="modelo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: COROLLA 1.6">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Año *</label>
-            <input type="text" name="anio" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: 2004">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Color *</label>
-            <input type="text" name="color" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: GRIS PLATA">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Tipo *</label>
-            <input type="text" name="tipo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: Particular">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Uso *</label>
-            <input type="text" name="uso" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: Particular">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Origen *</label>
-            <input type="text" name="origen" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: NACIONAL">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Peso *</label>
-            <input type="text" name="peso" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: 1050">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-300">Capacidad (Puestos) *</label>
-            <input type="text" name="puestos" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: 5">
-        </div>
-        <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-300">Número de serial carrocería *</label>
-            <input type="text" name="serial_carroceria" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: 8XA53ZEC149501931">
-        </div>
-        <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-300">Número de motor *</label>
-            <input type="text" name="serial_motor" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white" placeholder="Ej: 8XA53ZEC149501931">
-        </div>
-    </div>
-</div>
+
+        <!-- FORMULARIO PRINCIPAL -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-sm">
+            <form id="ocr-form" class="space-y-6">
+                
+                <input type="hidden" id="tipo_vehiculo" value="carro">
+
+                <!-- DATOS PERSONALES DESGLOSADOS -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Datos Personales del Tomador</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Cédula de Identidad *</label>
+                            <input type="text" id="cedula" required placeholder="Ej: V-14567890" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Fecha de Nacimiento *</label>
+                            <input type="date" id="fecha_nacimiento" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Primer Nombre *</label>
+                            <input type="text" id="primer_nombre" required placeholder="Ej: Néstor" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Segundo Nombre</label>
+                            <input type="text" id="segundo_nombre" placeholder="Ej: Daniel" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Primer Apellido *</label>
+                            <input type="text" id="primer_apellido" required placeholder="Ej: Rodríguez" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-300 mb-1">Segundo Apellido</label>
+                            <input type="text" id="segundo_apellido" placeholder="Ej: Luna" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus
