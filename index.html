@@ -8,133 +8,140 @@
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans antialiased">
 
-    <!-- CONTENEDOR PRINCIPAL -->
     <div class="max-w-3xl mx-auto px-4 py-12">
         
         <!-- ENCABEZADO -->
         <div class="text-center mb-10">
-            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/20">Emisión 100% Digital</span>
+            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/20">Emisión Inteligente con IA</span>
             <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 tracking-tight text-white">
                 Emite tu Póliza de RCV Legal al Instante con Respaldo de La Venezolana de Seguros
             </h1>
             <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-                Sin filas ni intermediarios. Obtén tu respaldo legal y viaja tranquilo en solo 10 minutos.
+                Sin escribir datos a mano. Sube la foto de tu Cédula y Carnet de Circulación; nuestra IA procesa tu póliza en segundos.
             </p>
-            <div class="mt-6 inline-block bg-slate-800 border border-slate-700 rounded-xl px-6 py-3 shadow-lg">
-                <span class="text-slate-400 text-xs block uppercase tracking-wider">Inversión Única</span>
-                <span class="text-2xl font-black text-emerald-400">$36,96 <span class="text-xs text-slate-400 font-normal">(Tasa BCV oficial)</span></span>
+
+            <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
+            <div class="mt-6 flex justify-center space-x-3">
+                <button type="button" id="btn-carro" onclick="seleccionarTipo('carro', '36.96')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-emerald-600 text-white shadow-lg border border-emerald-500">
+                    🚗 Carro / Camioneta ($36,96)
+                </button>
+                <button type="button" id="btn-moto" onclick="seleccionarTipo('moto', '15.00')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-slate-800 text-slate-400 border border-slate-700 hover:text-white">
+                    🏍️ Moto ($15,00)
+                </button>
             </div>
         </div>
 
-        <!-- ADVERTENCIA OBLIGATORIA (FILTRO DE CLIENTES) -->
+        <!-- ADVERTENCIA -->
         <div class="bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-xl mb-8">
-            <div class="flex items-start">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <h3 class="text-sm font-bold text-amber-300">¡Atención! Proceso de Emisión Inmediata</h3>
-                    <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                        Esta herramienta está conectada directamente con el sistema de emisión de pólizas. Al avanzar y proporcionar tus datos, confirmas que <strong>estás seguro de emitir tu póliza de RCV de forma inmediata</strong>. Asegúrate de tener los datos exactos y el método de pago listo para procesar en los próximos 10 minutos.
-                    </p>
-                </div>
-            </div>
+            <p class="text-xs text-slate-300">
+                <strong>¡Atención!</strong> Sube fotos nítidas y legibles. El sistema leerá automáticamente los seriales, placa y datos del tomador para generar la emisión inmediata.
+            </p>
         </div>
 
-        <!-- FORMULARIO DE EMISIÓN -->
-        <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-sm">
-            <form action="#" method="POST" class="space-y-6">
+        <!-- FORMULARIO DE CARGA DE IMÁGENES -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-sm">
+            <form id="ocr-form" class="space-y-6">
                 
-                <!-- SECCIÓN 1: DATOS PERSONALES (TOMADOR) -->
+                <input type="hidden" id="tipo_vehiculo" value="carro">
+
+                <!-- SUBIR CÉDULA -->
                 <div>
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-4 pb-2 border-b border-slate-700">1. Datos Personales del Tomador</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Cédula de Identidad *</label>
-                            <input type="text" required placeholder="Ej: V-16473677" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Fecha de Nacimiento *</label>
-                            <input type="date" required class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Teléfono (WhatsApp) *</label>
-                            <input type="tel" required placeholder="Ej: 04144668241" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Correo Electrónico *</label>
-                            <input type="email" required placeholder="correo@example.com" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Dirección de Habitación *</label>
-                            <input type="text" required placeholder="Ciudad, Urbanización/Sector, Calle..." class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">1. Foto de la Cédula de Identidad *</label>
+                    <input type="file" id="foto_cedula" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
+                </div>
+
+                <!-- SUBIR CARNET DE CIRCULACIÓN -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">2. Foto del Carnet de Circulación o Título *</label>
+                    <input type="file" id="foto_carnet" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
+                </div>
+
+                <!-- DATOS ADICIONALES (CONTACTO) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Teléfono (WhatsApp) *</label>
+                        <input type="tel" id="telefono" required placeholder="Ej: 04144668241" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Correo Electrónico *</label>
+                        <input type="email" id="correo" required placeholder="correo@example.com" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                     </div>
                 </div>
 
-                <!-- SECCIÓN 2: DATOS DEL VEHÍCULO (CERTIFICADO) -->
-                <div>
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-4 pb-2 border-b border-slate-700">2. Datos del Vehículo (Según Certificado)</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Número de Placa *</label>
-                            <input type="text" required placeholder="Ej: AF147MM" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 uppercase">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Año de Fabricación *</label>
-                            <input type="number" required placeholder="Ej: 2004" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Marca *</label>
-                            <input type="text" required placeholder="Ej: TOYOTA" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 uppercase">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Modelo *</label>
-                            <input type="text" required placeholder="Ej: COROLLA" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 uppercase">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Serial de Carrocería (NIV) *</label>
-                            <input type="text" required placeholder="Número de serie de carrocería" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 uppercase">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Serial de Motor *</label>
-                            <input type="text" required placeholder="Número de serie de motor" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 uppercase">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Color *</label>
-                            <input type="text" required placeholder="Ej: GRIS" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 uppercase">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Puestos y Peso (kg) *</label>
-                            <div class="grid grid-cols-2 gap-2">
-                                <input type="number" required placeholder="Puestos (5)" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                                <input type="number" required placeholder="Peso kg (1050)" class="w-full bg-slate-900 border border-slate-750 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BOTÓN DE ACCIÓN FINAL -->
-                <div class="pt-4">
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all duration-200 text-center tracking-wide uppercase text-sm">
-                        Estoy Segur@: Emitir Mi Póliza Ahora
-                    </button>
-                    <p class="text-center text-xs text-slate-400 mt-3">
-                        Al hacer clic, tus datos serán procesados de forma segura para generar la orden de pago inmediata.
-                    </p>
-                </div>
+                <!-- BOTÓN DE ENVÍO -->
+                <button type="submit" id="btn-procesar" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide">
+                    Escanear Documentos y Emitir Póliza
+                </button>
 
             </form>
-        </div>
 
-        <!-- PIE DE PÁGINA -->
-        <div class="text-center mt-8 text-xs text-slate-400">
-            <p>Plataforma automatizada de emisión autorizada • Respaldado por Seguros Pirámide</p>
+            <!-- ESTADO DE CARGA Y RESULTADO -->
+            <div id="loader" class="hidden text-center py-6">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-500 border-t-transparent"></div>
+                <p class="text-sm text-slate-300 mt-2">Nuestra IA está leyendo tus documentos y preparando el bot...</p>
+            </div>
+
+            <div id="resultado-container" class="hidden mt-6 p-4 bg-slate-900 rounded-xl border border-emerald-500/40">
+                <h3 class="text-emerald-400 text-sm font-bold mb-2">¡Datos Leídos con Éxito!</h3>
+                <pre id="json-output" class="text-xs text-slate-300 overflow-x-auto bg-slate-950 p-3 rounded-lg"></pre>
+            </div>
         </div>
 
     </div>
 
+    <script>
+        let precioActual = "36.96";
+
+        function seleccionarTipo(tipo, precio) {
+            document.getElementById('tipo_vehiculo').value = tipo;
+            precioActual = precio;
+            
+            if(tipo === 'carro') {
+                document.getElementById('btn-carro').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 text-white shadow-lg border border-emerald-500";
+                document.getElementById('btn-moto').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
+            } else {
+                document.getElementById('btn-moto').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 text-white shadow-lg border border-emerald-500";
+                document.getElementById('btn-carro').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
+            }
+        }
+
+        document.getElementById('ocr-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btn-procesar');
+            const loader = document.getElementById('loader');
+            const resContainer = document.getElementById('resultado-container');
+            
+            btn.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            const formData = new FormData();
+            formData.append('cedula_img', document.getElementById('foto_cedula').files[0]);
+            formData.append('carnet_img', document.getElementById('foto_carnet').files[0]);
+            formData.append('telefono', document.getElementById('telefono').value);
+            formData.append('correo', document.getElementById('correo').value);
+            formData.append('tipo_vehiculo', document.getElementById('tipo_vehiculo').value);
+            formData.append('precio', precioActual);
+
+            try {
+                // Reemplazar la URL con tu servidor Python de Render cuando esté activo
+                const response = await fetch('YOUR_BACKEND_URL/api/procesar-documentos', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                loader.classList.add('hidden');
+                resContainer.classList.remove('hidden');
+                document.getElementById('json-output').innerText = JSON.stringify(data, null, 2);
+
+            </div> catch (error) {
+                alert("Error al procesar las imágenes. Por favor asegúrate de que las fotos sean nítidas.");
+                btn.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
