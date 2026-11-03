@@ -1,266 +1,95 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emisión de RCV al Instante | La Venezolana de Seguros</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased">
-
-    <div class="max-w-3xl mx-auto px-4 py-12">
-        
-        <!-- ENCABEZADO -->
-        <div class="text-center mb-10">
-            <span class="bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/20">Emisión Inteligente con IA</span>
-            <h1 class="text-3xl md:text-4xl font-extrabold mt-4 mb-3 tracking-tight text-white">
-                Emite tu Póliza de RCV Legal al Instante
-            </h1>
-            <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-                Ingresa tus datos personales y sube el carnet de circulación; nuestra IA extraerá los datos de tu vehículo al instante.
-            </p>
-
-            <!-- SELECTOR DE VEHÍCULO Y PRECIO -->
-            <div class="mt-6 flex justify-center space-x-3">
-                <button type="button" id="btn-carro" onclick="seleccionarTipo('carro', '36.96')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-emerald-600 text-white shadow-lg border border-emerald-500">
-                    🚗 Carro / Camioneta ($36,96)
-                </button>
-                <button type="button" id="btn-moto" onclick="seleccionarTipo('moto', '16.80')" class="px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-slate-800 text-slate-400 border border-slate-700 hover:text-white">
-                    🏍️ Moto ($16,80)
-                </button>
+<form id="form-emision-rcv" class="space-y-6">
+    
+    <!-- Sección: Datos del Cliente -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Cliente / Tomador de la póliza</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Cédula / RIF</label>
+                <input type="text" name="cedula" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="V-16473677">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                <input type="text" name="nombre_completo" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="NESTOR DANIEL RODRIGUEZ LUNA">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                <input type="email" name="correo" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="derodriguezlunam@gmail.com">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+                <input type="text" name="telefono" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="04144668241">
             </div>
         </div>
-
-        <!-- FORMULARIO PRINCIPAL -->
-        <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-2xl backdrop-blur-sm">
-            <form id="ocr-form" class="space-y-6">
-                
-                <input type="hidden" id="tipo_vehiculo" value="carro">
-
-                <!-- DATOS PERSONALES DESGLOSADOS -->
-                <div class="space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Datos Personales del Tomador</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Cédula de Identidad *</label>
-                            <input type="text" id="cedula" required placeholder="Ej: V-14567890" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Fecha de Nacimiento *</label>
-                            <input type="date" id="fecha_nacimiento" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Primer Nombre *</label>
-                            <input type="text" id="primer_nombre" required placeholder="Ej: Néstor" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Segundo Nombre</label>
-                            <input type="text" id="segundo_nombre" placeholder="Ej: Daniel" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Primer Apellido *</label>
-                            <input type="text" id="primer_apellido" required placeholder="Ej: Rodríguez" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Segundo Apellido</label>
-                            <input type="text" id="segundo_apellido" placeholder="Ej: Luna" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Teléfono (WhatsApp) *</label>
-                            <input type="tel" id="telefono" required placeholder="Ej: 04144668241" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Correo Electrónico *</label>
-                            <input type="email" id="correo" required placeholder="correo@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DIRECCIÓN DEL TOMADOR -->
-                <div class="border-t border-slate-700 pt-6 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Dirección de Habitación</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Estado *</label>
-                            <input type="text" id="estado" required placeholder="Ej: MIRANDA" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Ciudad *</label>
-                            <input type="text" id="ciudad" required placeholder="Ej: GUARENAS" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Municipio *</label>
-                            <input type="text" id="municipio" required placeholder="Ej: Plaza" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Parroquia *</label>
-                            <input type="text" id="parroquia" required placeholder="Ej: Guarenas" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Dirección Detallada *</label>
-                        <input type="text" id="direccion_detallada" required placeholder="Ej: Urbanización, Edificio, Apartamento o Casa" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                </div>
-
-                <!-- SUBIR SOLO CARNET DE CIRCULACIÓN -->
-                <div class="border-t border-slate-700 pt-6">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2">Foto del Carnet de Circulación o Título (IA) *</label>
-                    <input type="file" id="foto_carnet" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer bg-slate-900 border border-slate-700 rounded-xl p-2">
-                </div>
-
-                <!-- BOTÓN DE ENVÍO -->
-                <button type="submit" id="btn-procesar" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide">
-                    Escanear Vehículo y Generar Solicitud
-                </button>
-
-            </form>
-
-            <!-- ESTADO DE CARGA -->
-            <div id="loader" class="hidden text-center py-6">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-emerald-500 border-t-transparent mx-auto"></div>
-                <p class="text-sm text-slate-300 mt-2">Leyendo el carnet de circulación con IA...</p>
-            </div>
-
-            <!-- RESULTADO Y BOTÓN DE WHATSAPP -->
-            <div id="resultado-container" class="hidden mt-6 p-6 bg-slate-900 rounded-2xl border border-emerald-500/40 space-y-4 text-center">
-                <h3 class="text-emerald-400 text-base font-bold">
-                    ✅ ¡Vehículo Escaneado y Datos Listos!
-                </h3>
-                <p class="text-xs text-slate-300">
-                    Haz clic abajo para enviar tu solicitud completa y procesar el pago por WhatsApp.
-                </p>
-                
-                <button type="button" id="btn-whatsapp" onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all uppercase text-sm tracking-wide flex items-center justify-center gap-2">
-                    💬 Enviar Solicitud y Pagar por WhatsApp
-                </button>
-
-                <div class="pt-2">
-                    <button type="button" onclick="location.reload()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all border border-slate-700">
-                        Registrar Otra Póliza
-                    </button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <script>
-        let precioActual = "36.96";
-        let datosVehiculo = {};
+    <!-- Sección: Datos del Vehículo (Información básica, detalles específicos y adicional) -->
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Datos del vehículo</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Información básica -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Placa</label>
+                <input type="text" name="placa" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="AF147MM">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Marca</label>
+                <input type="text" name="marca" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="TOYOTA">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Modelo</label>
+                <input type="text" name="modelo" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="COROLLA 1.6 A/T">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Año</label>
+                <input type="text" name="anio" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="2004">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Color</label>
+                <input type="text" name="color" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="GRIS PLATA">
+            </div>
 
-        function seleccionarTipo(tipo, precio) {
-            document.getElementById('tipo_vehiculo').value = tipo;
-            precioActual = precio;
-            
-            if(tipo === 'carro') {
-                document.getElementById('btn-carro').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 text-white shadow-lg border border-emerald-500";
-                document.getElementById('btn-moto').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
-            } else {
-                document.getElementById('btn-moto').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 text-white shadow-lg border border-emerald-500";
-                document.getElementById('btn-carro').className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-400 border border-slate-700";
-            }
-        }
+            <!-- Detalles específicos -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Tipo</label>
+                <input type="text" name="tipo" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="Particular">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Uso</label>
+                <input type="text" name="uso" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="Particular">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Origen</label>
+                <input type="text" name="origen" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="NACIONAL">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Peso</label>
+                <input type="text" name="peso" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="1050">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Capacidad (Puestos)</label>
+                <input type="text" name="puestos" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="5">
+            </div>
 
-        document.getElementById('ocr-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const btn = document.getElementById('btn-procesar');
-            const loader = document.getElementById('loader');
-            const resContainer = document.getElementById('resultado-container');
-            
-            btn.classList.add('hidden');
-            loader.classList.remove('hidden');
+            <!-- Información adicional (Seriales) -->
+            <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 pt-4 border-t border-gray-100">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Número de serial carrocería</label>
+                    <input type="text" name="serial_carroceria" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="8XA53ZEC149501931">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Número de motor</label>
+                    <input type="text" name="serial_motor" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="8XA53ZEC149501931">
+                </div>
+            </div>
+        </div>
+    </div>
 
-            const formData = new FormData();
-            formData.append('carnet_img', document.getElementById('foto_carnet').files[0]);
-            formData.append('cedula', document.getElementById('cedula').value);
-            formData.append('primer_nombre', document.getElementById('primer_nombre').value);
-            formData.append('segundo_nombre', document.getElementById('segundo_nombre').value);
-            formData.append('primer_apellido', document.getElementById('primer_apellido').value);
-            formData.append('segundo_apellido', document.getElementById('segundo_apellido').value);
-            formData.append('fecha_nacimiento', document.getElementById('fecha_nacimiento').value);
-            formData.append('telefono', document.getElementById('telefono').value);
-            formData.append('correo', document.getElementById('correo').value);
-            formData.append('tipo_vehiculo', document.getElementById('tipo_vehiculo').value);
-            formData.append('precio', precioActual);
-            formData.append('estado', document.getElementById('estado').value);
-            formData.append('ciudad', document.getElementById('ciudad').value);
-            formData.append('municipio', document.getElementById('municipio').value);
-            formData.append('parroquia', document.getElementById('parroquia').value);
-            formData.append('direccion_detallada', document.getElementById('direccion_detallada').value);
-
-            try {
-                const response = await fetch('https://rcv-backend-9r75.onrender.com/api/procesar-documentos', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const resultado = await response.json();
-                datosVehiculo = resultado.data;
-                
-                loader.classList.add('hidden');
-                resContainer.classList.remove('hidden');
-                btn.classList.remove('hidden');
-
-            } catch (error) {
-                console.error(error);
-                alert("Error al procesar el carnet. Asegúrate de que la foto sea nítida.");
-                btn.classList.remove('hidden');
-                loader.classList.add('hidden');
-            }
-        });
-
-        function enviarWhatsApp() {
-            const tuNumeroWhatsApp = "584144668241"; 
-
-            const mensaje = `Hola Néstor, quiero emitir mi póliza RCV al instante. Estos son mis datos y el vehículo escaneado por IA:
-
-🚗 *Tipo:* ${datosVehiculo.tipo_vehiculo.toUpperCase()} ($${datosVehiculo.precio})
-👤 *Nombre Completo:* ${datosVehiculo.nombre_completo}
-- 1er Nombre: ${datosVehiculo.primer_nombre}
-- 2do Nombre: ${datosVehiculo.segundo_nombre || 'N/A'}
-- 1er Apellido: ${datosVehiculo.primer_apellido}
-- 2do Apellido: ${datosVehiculo.segundo_apellido || 'N/A'}
-🪪 *Cédula:* ${datosVehiculo.cedula}
-🎂 *F. Nacimiento:* ${datosVehiculo.fecha_nacimiento}
-📞 *Teléfono:* ${datosVehiculo.telefono}
-📧 *Correo:* ${datosVehiculo.correo}
-
-🚙 *Datos del Vehículo (Escaneados por IA):*
-- Placa: ${datosVehiculo.placa}
-- Marca/Modelo: ${datosVehiculo.marca} ${datosVehiculo.modelo}
-- Año: ${datosVehiculo.anio}
-- Color: ${datosVehiculo.color}
-- Serial Carrocería: ${datosVehiculo.serial_carroceria}
-
-📍 *Dirección del Tomador:*
-- Estado: ${datosVehiculo.estado}
-- Ciudad: ${datosVehiculo.ciudad}
-- Municipio: ${datosVehiculo.municipio}
-- Parroquia: ${datosVehiculo.parroquia}
-- Detalle: ${datosVehiculo.direccion_detallada}
-
-¿Indícame cómo realizo el pago para recibir mi póliza!`;
-
-            const urlWpp = `https://wa.me/${tuNumeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-            window.open(urlWpp, '_blank');
-        }
-    </script>
-</body>
-</html>
+    <!-- Botón de Envío -->
+    <div class="flex justify-end">
+        <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition">
+            Procesar y Generar WhatsApp
+        </button>
+    </div>
+</form>
